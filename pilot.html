@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilot Fountain Pens</title>
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2a4365;
+            --accent-color: #4299e1;
+            --text-color: #2d3748;
+            --light-color: #f7fafc;
+            --border-color: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-color);
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin: 1.5rem 0 0.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .intro {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+        
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .model-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        
+        .model-image {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .model-content {
+            padding: 1.5rem;
+        }
+        
+        .gallery {
+            margin: 3rem 0;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            height: 200px;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            max-width: 80%;
+            max-height: 80%;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .models-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.75rem;
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Pilot Pens</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#popular-models">Popular Models</a>
+                <a href="#gallery">Gallery</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <section class="hero">
+            <h1>Pilot Fountain Pens</h1>
+            <p class="intro">
+                Pilot Corporation is renowned for crafting exceptional fountain pens that blend Japanese craftsmanship with innovative design. From affordable entry-level options to premium luxury writing instruments, Pilot offers fountain pens for writers at every level. With a history dating back to 1918, Pilot has established itself as a leader in the writing instrument industry, known for smooth nibs, reliable ink flow, and thoughtful designs.
+            </p>
+            <a href="#popular-models" class="btn">Explore Models</a>
+        </section>
+        
+        <section id="popular-models">
+            <h2>Popular Models</h2>
+            <div class="models-grid">
+                <div class="model-card">
+                    <img src="https://cdn11.bigcommerce.com/s-caae1tt33v/images/stencil/1280x1280/products/5084/11085/PilotMetropolitan-Fine-lineup-web__73331.1733523514.jpg?c=1" alt="Pilot Metropolitan" class="model-image">
+                    <div class="model-content">
+                        <h3>Pilot Metropolitan</h3>
+                        <p>An entry-level fountain pen known for its affordability and reliability. It features a brass body with a sleek design, making it a favorite among beginners.</p>
+                        <p>The Metropolitan offers exceptional value with its smooth writing experience and professional appearance at an accessible price point.</p>
+                    </div>
+                </div>
+                
+                <div class="model-card">
+                    <img src="https://m.media-amazon.com/images/I/51gO8qocl8L.jpg" alt="Pilot Vanishing Point" class="model-image">
+                    <div class="model-content">
+                        <h3>Pilot Vanishing Point</h3>
+                        <p>This innovative pen boasts a retractable 18-karat gold nib, allowing for one-handed operation. Its unique design combines convenience with high-quality craftsmanship.</p>
+                        <p>The Vanishing Point is perfect for professionals who need quick access to their writing instrument throughout the day.</p>
+                    </div>
+                </div>
+                
+                <div class="model-card">
+                    <img src="https://goldspot.com/cdn/shop/products/pilot-custom-74-fountain-pen-in-merlot-with-silver-trim-14k-gold-717_1024x1024.jpg?v=1646076082" alt="Pilot Custom 74" class="model-image">
+                    <div class="model-content">
+                        <h3>Pilot Custom 74</h3>
+                        <p>A mid-range pen featuring a 14-karat gold nib and a transparent resin body, allowing users to monitor ink levels. It's appreciated for its smooth writing experience.</p>
+                        <p>The Custom 74 represents the perfect step up for fountain pen enthusiasts looking to experience a gold nib.</p>
+                    </div>
+                </div>
+                
+                <div class="model-card">
+                    <img src="https://www.atlasstationers.com/cdn/shop/files/PILOTFALCONREDFPA.jpg?v=1751023212&width=1214" alt="Pilot Falcon" class="model-image">
+                    <div class="model-content">
+                        <h3>Pilot Falcon</h3>
+                        <p>Known for its semi-flexible 14-karat gold nib, the Falcon allows for slight line variation, making it popular among calligraphers and those who enjoy expressive writing.</p>
+                        <p>The unique nib design provides a writing experience that bridges the gap between modern and traditional fountain pens.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="gallery" class="gallery">
+            <h2>Pen Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://m.media-amazon.com/images/I/61DfgOOzB5L.jpg" alt="Pilot Custom 823">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://fprevolutionusa.com/cdn/shop/files/custom823smoke.jpg?v=1723138480" alt="Pilot Custom 823 Amber">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://www.atlasstationers.com/cdn/shop/products/PILOT_CUSTOM_823_SMOKE_B.jpg?v=1751023220&width=1500" alt="Pilot Custom 823 Smoke">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://m.media-amazon.com/images/I/51idAT7wfsL.jpg" alt="Pilot Cocoon">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://nibsmith.com/wp-content/uploads/2024/10/Pilot-Custom-Urushi-Blue-capped-nibsmith.jpg" alt="Pilot Custom Urushi">
+                </div>
+                <div class="gallery-item">
+                    <img src="http://fontoplumo.nl/cdn/shop/files/pilot-capless-se-green-fountain-pen-fontoplumo-4982315.jpg?v=1752825914" alt="Pilot Capless SE Green">
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="">
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 Pilot Fountain Pens | <a href="index.html" style="color: white;">Back to Home</a></p>
+    </footer>
+    
+    <script>
+        // Image modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        const galleryItems = document.querySelectorAll('.gallery-item img');
+        
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                modal.style.display = 'flex';
+                modalImg.src = this.src;
+            });
+        });
+        
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

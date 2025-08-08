@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sailor Fountain Pens</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2a4a7f;
+            --accent: #f0b429;
+            --light: #f7fafc;
+            --dark: #2d3748;
+            --text: #4a5568;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+        
+        nav {
+            background-color: var(--secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links li a:hover {
+            background-color: var(--primary);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        section {
+            margin-bottom: 4rem;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .intro {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .model-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .model-title {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .model-variants {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .model-variants li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            height: 250px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(26, 54, 93, 0.8);
+            color: white;
+            padding: 0.75rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            max-width: 80%;
+            max-height: 80%;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent);
+            color: var(--dark);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .hamburger {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 2rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Sailor Fountain Pens</h1>
+            <p class="tagline">Craftsmanship and Precision Since 1911</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <button class="hamburger">☰</button>
+            <ul class="nav-links">
+                <li><a href="#about">About Sailor</a></li>
+                <li><a href="#models">Popular Models</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <main>
+        <section id="about">
+            <h2>About Sailor Fountain Pens</h2>
+            <p class="intro">Sailor is renowned for its high-quality fountain pens, offering a range of models that cater to both enthusiasts and professionals. Founded in 1911 in Japan, Sailor has established itself as one of the premier fountain pen manufacturers in the world, known for their exceptional nibs and meticulous craftsmanship.</p>
+        </section>
+        
+        <section id="models">
+            <h2>Popular Models</h2>
+            
+            <div class="model-card">
+                <h3 class="model-title">1911 Series</h3>
+                <p>The 1911 series, named after the year Sailor was founded, features a classic cigar-shaped design and is available in multiple sizes:</p>
+                <ul class="model-variants">
+                    <li><strong>1911 Standard (1911S):</strong> Equipped with a 14K gold nib, this model offers a balanced writing experience.</li>
+                    <li><strong>1911 Large (1911L):</strong> Slightly larger and fitted with a 21K gold nib, providing a more substantial feel.</li>
+                    <li><strong>1911 King of Pens:</strong> The largest in the series, designed for those who prefer a more prominent pen.</li>
+                </ul>
+                <p>Special editions, such as the "1911S Sparkle Cranberry," released as Sailor's 2021 Pen of the Year, feature unique designs like a translucent deep red body infused with shimmering silver particles.</p>
+            </div>
+            
+            <div class="model-card">
+                <h3 class="model-title">Professional Gear (Pro Gear) Series</h3>
+                <p>The Pro Gear series is distinguished by its flat-top design and is available in various sizes:</p>
+                <ul class="model-variants">
+                    <li><strong>Pro Gear Standard:</strong> Features a 21K gold nib and a robust build.</li>
+                    <li><strong>Pro Gear Slim (also known as Sapporo):</strong> Comes with a 14K gold nib and a more compact size, suitable for those who prefer a lighter pen.</li>
+                    <li><strong>Pro Gear King of Pens:</strong> The largest in this series, offering a substantial writing instrument.</li>
+                </ul>
+                <p>Notable editions include the "Pro Gear Slim Blue Dwarf," part of Sailor's Universe series, featuring a sparkling blue body inspired by blue dwarf stars.</p>
+            </div>
+            
+            <div class="model-card">
+                <h3 class="model-title">Compass 1911</h3>
+                <p>The Compass 1911 serves as an entry-level model, modeled after the 1911 series but offered at a more accessible price point. It features a transparent plastic body available in various colors and is equipped with a steel medium-fine nib. This model is ideal for those new to fountain pens or looking for a budget-friendly option.</p>
+            </div>
+            
+            <div class="model-card">
+                <h3 class="model-title">Realo</h3>
+                <p>The Realo is a piston-fill version of the 1911 series, allowing for a larger ink capacity. It maintains the classic design of the 1911 but includes an ink window to monitor ink levels.</p>
+            </div>
+            
+            <div class="model-card">
+                <h3 class="model-title">ProColor</h3>
+                <p>The ProColor series offers vibrant designs and is equipped with steel nibs, making it a more affordable option without compromising on quality. It's suitable for those seeking a reliable everyday pen with a touch of style.</p>
+            </div>
+        </section>
+        
+        <section id="gallery">
+            <h2>Pen Gallery</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://appelboom.com/image/catalog/Sailor/1911/sailor-1911-king-of-pens-brier-gt-fountain-pen-white-background.jpg" alt="Sailor 1911 King of Pens Brier GT">
+                    <div class="gallery-caption">Sailor 1911 King of Pens Brier GT</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://www.gouletpens.com/cdn/shop/files/Sailor-1911-Ninja-Gojoh-OW-2.jpg?v=1740756368" alt="Sailor 1911L Ninja Fountain Pen">
+                    <div class="gallery-caption">Sailor 1911L Ninja Fountain Pen - Gojoh Medium Fine</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://m.media-amazon.com/images/I/61tIfBsnazL._UF894,1000_QL80_.jpg" alt="Sailor Professional Gear Gold">
+                    <div class="gallery-caption">Sailor Professional Gear Gold</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://www.jennibick.com/cdn/shop/files/Sailor-Pro-Gear-Fountain-Pen-Smoothie-2-Watermelon.jpg?v=1741137302&width=1500" alt="Sailor Pro Gear Smoothie 2 Watermelon">
+                    <div class="gallery-caption">Sailor Pro Gear Smoothie 2 - Watermelon (Limited Edition)</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="http://www.dromgooles.com/cdn/shop/files/Sailor1911LFountainPen-GrapeExpectations_PenoftheYear2025.jpg?v=1748021198" alt="Sailor 1911L Grape Expectations">
+                    <div class="gallery-caption">Sailor 1911L - Grape Expectations (Pen of the Year 2025)</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://appelboom.com/image/catalog/Sailor/Dreamy%20Hour/sailor-pro-gear-dreamy-hour-le-gt-fountain-pens.jpg" alt="Sailor Professional Gear King of Pens - Dreamy Hour">
+                    <div class="gallery-caption">Sailor Professional Gear - King of Pens - Dreamy Hour</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://www.gouletpens.com/cdn/shop/files/Sailor-PGS-DriedFlowers-Lavender-2_1500x.jpg?v=1735665720" alt="Sailor Pro Gear Slim - Dried Flowers - Lavender">
+                    <div class="gallery-caption">Sailor Pro Gear Slim - Dried Flowers - Lavender</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://www.atlasstationers.com/cdn/shop/files/Sailor_1911_KOP_A.jpg?v=1751022977&width=1214" alt="Sailor King Profit St Black Bold">
+                    <div class="gallery-caption">Sailor King Profit St Black Bold</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <div class="modal" id="imageModal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Enlarged pen image">
+        </div>
+    </div>
+    
+    <a href="#" class="back-to-top" id="backToTop">↑</a>
+    
+    <footer>
+        <p>&copy; 2023 Sailor Fountain Pens. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        // Mobile navigation toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Image modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeModal = document.querySelector('.close-modal');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const imgSrc = item.querySelector('img').src;
+                modalImg.src = imgSrc;
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

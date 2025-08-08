@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pelikan Fountain Pens</title>
+    <style>
+        :root {
+            --primary-color: #005a87;
+            --secondary-color: #f8f8f8;
+            --accent-color: #e3b505;
+            --text-color: #333;
+            --light-gray: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://www.gouletpens.com/cdn/shop/articles/Pelikan-Brand-2022-1.jpg?v=1723476574') no-repeat center center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .pen-series {
+            margin-bottom: 4rem;
+        }
+        
+        .series-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 0.5rem;
+        }
+        
+        .pen-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .pen-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .pen-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        
+        .pen-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .pen-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .pen-card:hover .pen-image img {
+            transform: scale(1.05);
+        }
+        
+        .pen-info {
+            padding: 1.5rem;
+        }
+        
+        .pen-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .pen-info p {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #00486d;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-content p {
+            margin-top: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .pen-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+                color: white;
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Pelikan</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pilot.html">Pilot</a></li>
+                <li><a href="sailor.html">Sailor</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">☰</div>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Pelikan Fountain Pens</h1>
+            <p>Discover the craftsmanship and elegance of Pelikan, a renowned German manufacturer with a legacy of excellence since 1838.</p>
+        </div>
+    </section>
+    
+    <div class="container">
+        <section class="introduction">
+            <h2 class="section-title">About Pelikan</h2>
+            <p>Pelikan is a renowned German manufacturer that offers a diverse range of fountain pens celebrated for their craftsmanship and design. With a history dating back to 1838, Pelikan has established itself as one of the premier fountain pen makers in the world. Their pens are known for their distinctive striped barrels, high-quality materials, and exceptional writing experience. Whether you're a collector, enthusiast, or professional writer, Pelikan offers pens that combine functionality with timeless elegance.</p>
+        </section>
+        
+        <section class="pen-series">
+            <h2 class="section-title">Popular Pelikan Models</h2>
+            
+            <div class="series-title">Souverän Series</div>
+            <div class="pen-grid">
+                <div class="pen-card">
+                    <div class="pen-image">
+                        <img src="https://chatterleyluxuries.com/wp-content/uploads/2022/11/L1001207-3.jpg" alt="Pelikan M1000">
+                    </div>
+                    <div class="pen-info">
+                        <h3>M1000</h3>
+                        <p>The largest in the series, featuring an 18-karat gold nib and a substantial barrel, ideal for those who prefer a heftier pen.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="pen-card">
+                    <div class="pen-image">
+                        <img src="https://m.media-amazon.com/images/I/51FUQVI3S8L.jpg" alt="Pelikan M800">
+                    </div>
+                    <div class="pen-info">
+                        <h3>M800</h3>
+                        <p>Slightly smaller than the M1000, the M800 comes with gold-plated trim and an 18-karat gold nib. Favored for its balanced weight and size.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="pen-card">
+                    <div class="pen-image">
+                        <img src="https://www.atlasstationers.com/cdn/shop/files/M600Blue.jpg?v=1751023029&width=1214" alt="Pelikan M600">
+                    </div>
+                    <div class="pen-info">
+                        <h3>M600</h3>
+                        <p>Mid-sized pen equipped with a 14-karat gold nib. The M600 has gold-plated trim and is appreciated for its comfortable size and weight.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="pen-card">
+                    <div class="pen-image">
+                        <img src="https://m.media-amazon.com/images/I/51xLKIc8hvL.jpg" alt="Pelikan M400">
+                    </div>
+                    <div class="pen-info">
+                        <h3>M400</h3>
+                        <p>Smaller in size, featuring a 14-karat gold nib with gold-plated trim. Suitable for those who prefer a more compact writing instrument.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="series-title">Classic Series</div>
+            <div class="pen-grid">
+                <div class="pen-card">
+                    <div class="pen-image">
+                        <img src="https://nibsmith.com/wp-content/uploads/2024/08/Pelikan-M200-Golden-Lapis-foutnain-pen-posted-nibsmith.jpg" alt="Pelikan M200">
+                    </div>
+                    <div class="pen-info">
+                        <h3>M200</h3>
+                        <p>Equipped with a stainless steel nib and featuring a piston filling mechanism. Known for its smooth writing experience and affordability.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <h3>Pelikan Fountain Pens</h3>
+            <p>&copy; 2024 Pelikan Enthusiast. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('nav')) {
+                    navLinks.classList.remove('active');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Add animation on scroll
+            const animateOnScroll = function() {
+                const cards = document.querySelectorAll('.pen-card');
+                
+                cards.forEach(card => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (cardPosition < screenPosition) {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Initialize card styles
+            const cards = document.querySelectorAll('.pen-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            
+            // Run animation on load and scroll
+            window.addEventListener('load', animateOnScroll);
+            window.addEventListener('scroll', animateOnScroll);
+        });
+    </script>
+</body>
+</html>
